@@ -1,0 +1,25 @@
+{
+  "name": "nuxt-directus-ts",
+  "version": "1.0.0",
+  "description": "A nuxt module for Directus SDK with Auth handling and Typescript support",
+  "main": "dist/module.js",
+  "repository": "https://github.com/joeczar/nuxt-directus-ts",
+  "author": "Joe Czarnecki <joe-czar@outlook.com>",
+  "scripts": {
+    "build": "tsc"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "@nuxt/test-utils": "latest",
+    "@nuxt/types": "latest",
+    "@nuxt/typescript-build": "latest",
+    "@nuxt/typescript-runtime": "latest",
+    "@nuxtjs/eslint-config-typescript": "latest",
+    "typescript": "^4.5.2"
+  },
+  "dependencies": {
+    "@directus/sdk": "^9.2.0",
+    "axios-auth-refresh": "^3.2.1",
+    "jwt-decode": "^3.1.2"
+  }
+}
