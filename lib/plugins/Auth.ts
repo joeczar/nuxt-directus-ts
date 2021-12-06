@@ -1,13 +1,17 @@
 import createAuthRefreshInterceptor from 'axios-auth-refresh'
 import type { Context } from '@nuxt/types'
-import { ModuleOptions } from '../types'
+import jwtDecode from 'jwt-decode'
+import { Directus } from '@directus/sdk'
+import { AuthCredentials } from '@directus/sdk/dist'
+
+import { CustomTypes, ModuleOptions } from '../types'
 
 export class PluginAuth {
   public options: ModuleOptions
-  public $directus
+  public $directus: Directus<CustomTypes>
   public $store
   public $cookies
-  public refreshTimer
+  public refreshTimer: any
 
   constructor(context: Context, options: ModuleOptions) {
     this.options = options
@@ -38,7 +42,7 @@ export class PluginAuth {
     return this.$store.state.auth.user
   }
 
-  async login(credentials) {
+  async login(credentials: AuthCredentials) {
     const loginData = await this.$directus.auth.login(credentials)
     this.$cookies.set(
       this.options.accessTokenCookieName,
@@ -95,8 +99,9 @@ export class PluginAuth {
     return response.data.data.access_token
   }
 
-  _getTimeUntilRefreshNeeded(token) {
-    const validUntil = jwtDecode(token).exp
+  _getTimeUntilRefreshNeeded(token: string) {
+    const decodedToken: Record<string, any> = jwtDecode(token)
+    const validUntil: number = decodedToken.exp
     return validUntil * 1000 - Date.now() - 300000
   }
 }

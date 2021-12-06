@@ -1,19 +1,12 @@
 import Vue, { Context } from 'vue'
-import jwtDecode from 'jwt-decode'
-import createAuthRefreshInterceptor from 'axios-auth-refresh'
-import { Directus, BaseStorage, Auth, AxiosTransport } from '@directus/sdk'
+import { Directus } from '@directus/sdk'
 import { Plugin } from '@nuxt/types'
 import { PluginStorage } from './Storage'
-
-declare module '@nuxt/types' {
-  interface Context {
-    $directus: void
-  }
-}
+import { PluginAuth } from './Auth'
 
 const directusPlugin: Plugin = async (context, inject) => {
   const options = JSON.parse(`<%= JSON.stringify(options) %>`)
-
+  const auth = new PluginAuth(context, options)
   const directus = new Directus(options.apiUrl, {
     storage: new PluginStorage(null, context, options),
     auth,
@@ -21,6 +14,6 @@ const directusPlugin: Plugin = async (context, inject) => {
   })
 
   inject('directus', directus)
-  context.app.$directus = {}
+  context.app.$directus = directus
 }
 export default directusPlugin
