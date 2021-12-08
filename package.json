@@ -1,0 +1,17 @@
+{
+  "name": "nuxt-directus-ts",
+  "version": "1.0.0",
+  "main": "dist/module.js",
+  "author": "Joe Czarnecki <joe.czarnecki@db-n.com>",
+  "license": "MIT",
+  "scripts": {
+    "build": "tsc"
+  },
+  "devDependencies": {
+    "typescript": "^4.5.2",
+    "@types/node": "8.10.*",
+    "@nuxt/types": "latest",
+    "@nuxt/typescript-build": "latest",
+    "@nuxt/typescript-runtime": "latest"
+  }
+}
